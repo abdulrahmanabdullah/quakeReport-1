@@ -1,7 +1,11 @@
 package abdulrahmanjavanrd.com.quakereport_3;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -28,14 +32,25 @@ public class MainActivity extends AppCompatActivity {
         // TODO: fill information form QuakeInfo class
         fillInformation();
         // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
+        ListView earthquakeListView = findViewById(R.id.list);
         // Create a new {@link ArrayAdapter} of earthquakes
         //TODO : replace this adapter with class adapter .
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        MyAdapter ada = new MyAdapter(this,QueryUtils.extractEarthQuakes());
+        final MyAdapter ada = new MyAdapter(this,QueryUtils.extractEarthQuakes());
         //TODO : set adapter of listView .
         earthquakeListView.setAdapter(ada);
+
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                QuakeInfo currentObj = ada.getItem(position);
+                String uri = currentObj.getUri();
+                Uri  quakePage = Uri.parse(uri);
+                Intent mIntent = new Intent(Intent.ACTION_VIEW,quakePage);
+                startActivity(mIntent);
+            }
+        });
     }
 
     private void fillInformation(){

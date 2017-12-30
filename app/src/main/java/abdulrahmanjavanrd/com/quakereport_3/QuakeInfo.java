@@ -8,6 +8,7 @@ public class QuakeInfo {
     private double magnitude ;
     private String quakeLocation ;
     private long quakeData;
+    private String uri ;
 
 //    public void setMagnitude(double magnitude) {
 //        this.magnitude = magnitude;
@@ -21,10 +22,11 @@ public class QuakeInfo {
 //        this.quakeData = quakeData;
 //    }
 
-    public QuakeInfo(double magnitude, String quakeLocation, long quakeData) {
+    public QuakeInfo(double magnitude, String quakeLocation, long quakeData,String theUri) {
         this.magnitude = magnitude;
         this.quakeLocation = quakeLocation;
         this.quakeData = quakeData;
+        this.uri = theUri;
     }
 
     public double getMagnitude() {
@@ -37,5 +39,9 @@ public class QuakeInfo {
 
     public long getQuakeDate() {
         return quakeData;
+    }
+
+    public String getUri() {
+        return uri;
     }
 }
